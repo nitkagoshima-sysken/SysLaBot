@@ -1,5 +1,18 @@
 require 'discordrb'
 
+cannot_change_roles = [
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "Mechanical",
+    "Electrical and Electronic",
+    "Electronic Control",
+    "Information",
+    "Department of Urban Environmental Design",
+]
+
 token = File.read('token.dat')
 client_id = File.read('client_id.dat')
 prefix = '/'
