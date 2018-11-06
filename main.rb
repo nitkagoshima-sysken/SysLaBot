@@ -17,6 +17,10 @@ token = File.read('token.dat')
 client_id = File.read('client_id.dat')
 prefix = '/'
 
+# 改行を削除
+token.chomp!
+client_id.chomp!
+
 bot = Discordrb::Commands::CommandBot.new token: token, client_id: client_id, prefix: prefix
 
 bot.member_join do |event|
