@@ -111,11 +111,29 @@ bot.command :iam do |event, *args|
         event << "あなたは既に「" + role_name + "」です"
         return
     elsif cannot_change_roles.include? role_name
-        event << "あなたは「" + role_name + "」という役職にはなることはできません"
+        event << "あなたは「" + role_name + "」という役職はなることはできません"
         return
     else
         event.user.add_role(event.server.roles.find{|r| r.name == role_name})
         event << "あなたは「" + role_name + "」になりました"
+    end
+end
+
+# /iamnot [role]: 役職[role]をやめます
+bot.command :iamnot do |event, *args|
+    role_name = args.join(' ')
+    if event.server.roles.find{|r| r.name == role_name}.nil?
+        event << "「" + role_name + "」という役職はこのサーバーには存在しません"
+        return
+    elsif event.user.roles.find{|r| r.name == role_name}.nil?
+        event << "あなたは既に「" + role_name + "」ではありません"
+        return
+    elsif cannot_change_roles.include? role_name
+        event << "あなたは「" + role_name + "」という役職をやめることはできません"
+        return
+    else
+        event.user.remove_role(event.server.roles.find{|r| r.name == role_name})
+        event << "あなたは「" + role_name + "」をやめました"
     end
 end
 
