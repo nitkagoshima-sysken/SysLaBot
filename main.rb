@@ -23,6 +23,10 @@ client_id.chomp!
 
 bot = Discordrb::Commands::CommandBot.new token: token, client_id: client_id, prefix: prefix
 
+bot.ready do |e|
+    bot.game = "さくらインターネット"
+end
+
 bot.member_join do |event|
     event.server.text_channels[0].send_embed do |embed|
         embed.title = event.user.name + "さんが参加しました"
