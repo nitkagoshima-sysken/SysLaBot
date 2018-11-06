@@ -100,4 +100,20 @@ end
 bot.command :italic do |event, *args|
     "*#{args.join(' ')}*"
 end
+
+# /iam [role]: 役職[role]になります
+bot.command :iam do |event, *args|
+    role_name = args.join(' ')
+    if cannot_change_roles.include? role_name
+        event << "あなたは「" + role_name + "」という役職にはなることはできません"
+        return
+    elsif event.server.roles.find{|r| r.name == role_name}.nil?
+        event << "「" + role_name + "」という役職はこのサーバーには存在しません"
+        return
+    else
+        event.user.add_role(event.server.roles.find{|r| r.name == role_name})
+        event << "あなたは「" + role_name + "」です"
+    end
+end
+
 bot.run
