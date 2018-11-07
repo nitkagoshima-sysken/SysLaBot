@@ -105,7 +105,7 @@ bot.command :italic do |event, *args|
 end
 
 # /iam [role]: 役職[role]になります
-bot.command :iam do |event, *args|
+bot.command [:iam, :im] do |event, *args|
     role_name = args.join(' ')
     if event.server.roles.find{|r| r.name == role_name}.nil?
         event << "「" + role_name + "」という役職はこのサーバーには存在しません"
@@ -128,7 +128,7 @@ bot.command :iam do |event, *args|
 end
 
 # /iamnot [role]: 役職[role]をやめます
-bot.command :iamnot do |event, *args|
+bot.command [:iamnot, :imnot] do |event, *args|
     role_name = args.join(' ')
     if event.server.roles.find{|r| r.name == role_name}.nil?
         event << "「" + role_name + "」という役職はこのサーバーには存在しません"
