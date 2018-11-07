@@ -1,4 +1,4 @@
-# SysLaBot 1.2
+# SysLaBot 1.3
 
 ## History
 
