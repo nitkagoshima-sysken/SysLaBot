@@ -1,11 +1,14 @@
 require 'discordrb'
 
-cannot_change_roles = [
+year_roles = [
     "2014",
     "2015",
     "2016",
     "2017",
     "2018",
+]
+
+major_roles = [
     "Mechanical",
     "Electrical and Electronic",
     "Electronic Control",
@@ -110,8 +113,13 @@ bot.command :iam do |event, *args|
     elsif !event.user.roles.find{|r| r.name == role_name}.nil?
         event << "あなたは既に「" + role_name + "」です"
         return
-    elsif cannot_change_roles.include? role_name
-        event << "あなたは「" + role_name + "」という役職はなることはできません"
+    elsif year_roles.include? role_name
+        event << "あなたは「" + role_name + "」という年代になることはできません"
+        event << "もし、割り当てられた年代が違う場合は、管理者に連絡してください"
+        return
+    elsif major_roles.include? role_name
+        event << "あなたは「" + role_name + "」という学科になることはできません"
+        event << "もし、割り当てられた学科が違う場合は、管理者に連絡してください"
         return
     else
         event.user.add_role(event.server.roles.find{|r| r.name == role_name})
@@ -128,8 +136,13 @@ bot.command :iamnot do |event, *args|
     elsif event.user.roles.find{|r| r.name == role_name}.nil?
         event << "あなたは既に「" + role_name + "」ではありません"
         return
-    elsif cannot_change_roles.include? role_name
-        event << "あなたは「" + role_name + "」という役職をやめることはできません"
+    elsif year_roles.include? role_name
+        event << "あなたは「" + role_name + "」という年代をやめることはできません"
+        event << "もし、割り当てられた年代が違う場合は、管理者に連絡してください"
+        return
+    elsif major_roles.include? role_name
+        event << "あなたは「" + role_name + "」という学科をやめることはできません"
+        event << "もし、割り当てられた学科が違う場合は、管理者に連絡してください"
         return
     else
         event.user.remove_role(event.server.roles.find{|r| r.name == role_name})
