@@ -1,4 +1,5 @@
 require 'discordrb'
+require 'timers'
 
 year_roles = [
     "2014",
@@ -16,6 +17,20 @@ major_roles = [
     "Department of Urban Environmental Design",
 ]
 
+games = [
+    "Bad North",
+    "Dead by Daylight",
+    "Hearthstone",
+    "Minecraft",
+    "Moonlighter",
+    "Overwatch",
+    "PLYAERUNKNOWN'S BATTLEGROUNDS",
+    "StarCraft II",
+    "Yandere Simulator",
+    "黒い砂漠",
+    "見上げてごらん夜の星を",
+]
+
 token = File.read('token.dat')
 client_id = File.read('client_id.dat')
 prefix = '/'
@@ -26,8 +41,8 @@ client_id.chomp!
 
 bot = Discordrb::Commands::CommandBot.new token: token, client_id: client_id, prefix: prefix
 
-bot.ready do |e|
-    bot.game = "さくらインターネット"
+bot.ready do |event|
+    bot.game = bot.game = games[rand(games.count)]
 end
 
 bot.member_join do |event|
@@ -150,4 +165,16 @@ bot.command [:iamnot, :imnot] do |event, *args|
     end
 end
 
-bot.run
+
+thread1 = Thread.new do
+    timers = Timers::Group.new
+    timer = timers.every(60 * 15) { bot.game = games[rand(games.count)] }
+    loop { timers.wait }
+end
+thread2 = Thread.new do
+    bot.run
+end
+
+thread1.join
+thread2.join
+
