@@ -80,11 +80,15 @@ end
 
 # /random [min] [max]: min以上max以下の乱数を返します
 # /random [max]: max未満の乱数を返します
-bot.command :random do |event, min, max|
-    unless max.nil?
-        event << rand(min.to_i .. max.to_i)
+bot.command(:random, min_args: 0, max_args: 2, description: 'Generates a random number between 0 and 1, 0 and max or min and max.', usage: 'random [min/max] [max]') do |event, min, max|
+    # The `if` statement returns one of multiple different things based on the condition. Its return value
+    # is then returned from the block and sent to the channel
+    if max
+        rand(min.to_i..max.to_i)
+    elsif min
+        rand(0..min.to_i)
     else
-        event << rand(min.to_i)
+        rand
     end
 end
 
