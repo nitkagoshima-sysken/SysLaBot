@@ -1,34 +1,35 @@
 require 'discordrb'
 require 'timers'
+require 'date'
 
 year_roles = [
-  "2014",
-  "2015",
-  "2016",
-  "2017",
-  "2018",
+    "2014",
+    "2015",
+    "2016",
+    "2017",
+    "2018",
 ]
 
 major_roles = [
-  "Mechanical",
-  "Electrical and Electronic",
-  "Electronic Control",
-  "Information",
-  "Department of Urban Environmental Design",
+    "Mechanical",
+    "Electrical and Electronic",
+    "Electronic Control",
+    "Information",
+    "Department of Urban Environmental Design",
 ]
 
 games = [
-  "Bad North",
-  "Dead by Daylight",
-  "Hearthstone",
-  "Minecraft",
-  "Moonlighter",
-  "Overwatch",
-  "PLYAERUNKNOWN'S BATTLEGROUNDS",
-  "StarCraft II",
-  "Yandere Simulator",
-  "黒い砂漠",
-  "見上げてごらん夜の星を",
+    "Bad North",
+    "Dead by Daylight",
+    "Hearthstone",
+    "Minecraft",
+    "Moonlighter",
+    "Overwatch",
+    "PLYAERUNKNOWN'S BATTLEGROUNDS",
+    "StarCraft II",
+    "Yandere Simulator",
+    "黒い砂漠",
+    "見上げてごらん夜の星を",
 ]
 
 token = File.read('token.dat')
@@ -49,12 +50,12 @@ bot.member_join do |event|
   event.server.text_channels[0].send_embed do |embed|
     embed.title = event.user.name + "さんが参加しました"
     embed.thumbnail = Discordrb::Webhooks::EmbedThumbnail.new(
-      url: event.user.avatar_url
+        url: event.user.avatar_url
     )
     embed.color = '00dd00'
     embed.add_field(
-      name: 'シス研へようこそ！',
-      value: "このサーバーにはいくつかのルールがあります。\nはじめに #readme をお読みください。",
+        name: 'シス研へようこそ！',
+        value: "このサーバーにはいくつかのルールがあります。\nはじめに #readme をお読みください。",
     )
   end
 end
@@ -63,12 +64,12 @@ bot.command :test do |event|
   event.server.text_channels[0].send_embed do |embed|
     embed.title = event.user.name + "さんが参加しました"
     embed.thumbnail = Discordrb::Webhooks::EmbedThumbnail.new(
-      url: event.user.avatar_url
+        url: event.user.avatar_url
     )
     embed.color = '00dd00'
     embed.add_field(
-      name: 'シス研へようこそ！',
-      value: "このサーバーにはいくつかのルールがあります。\nはじめに #readme をお読みください。",
+        name: 'シス研へようこそ！',
+        value: "このサーバーにはいくつかのルールがあります。\nはじめに #readme をお読みください。",
     )
   end
 end
@@ -118,7 +119,7 @@ bot.command :bold do |event, *args|
   # Again, the return value of the block is sent to the channel
   "**#{args.join(' ')}**"
 end
-  
+
 bot.command :italic do |event, *args|
   "*#{args.join(' ')}*"
 end
@@ -126,10 +127,10 @@ end
 # /iam [role]: 役職[role]になります
 bot.command [:iam, :im] do |event, *args|
   role_name = args.join(' ')
-  if event.server.roles.find{|r| r.name == role_name}.nil?
+  if event.server.roles.find {|r| r.name == role_name}.nil?
     event << "「" + role_name + "」という役職はこのサーバーには存在しません"
     return
-  elsif !event.user.roles.find{|r| r.name == role_name}.nil?
+  elsif !event.user.roles.find {|r| r.name == role_name}.nil?
     event << "あなたは既に「" + role_name + "」です"
     return
   elsif year_roles.include? role_name
@@ -141,7 +142,7 @@ bot.command [:iam, :im] do |event, *args|
     event << "もし、割り当てられた学科が違う場合は、管理者に連絡してください"
     return
   else
-    event.user.add_role(event.server.roles.find{|r| r.name == role_name})
+    event.user.add_role(event.server.roles.find {|r| r.name == role_name})
     event << "あなたは「" + role_name + "」になりました"
   end
 end
@@ -149,10 +150,10 @@ end
 # /iamnot [role]: 役職[role]をやめます
 bot.command [:iamnot, :imnot] do |event, *args|
   role_name = args.join(' ')
-  if event.server.roles.find{|r| r.name == role_name}.nil?
+  if event.server.roles.find {|r| r.name == role_name}.nil?
     event << "「" + role_name + "」という役職はこのサーバーには存在しません"
     return
-  elsif event.user.roles.find{|r| r.name == role_name}.nil?
+  elsif event.user.roles.find {|r| r.name == role_name}.nil?
     event << "あなたは既に「" + role_name + "」ではありません"
     return
   elsif year_roles.include? role_name
@@ -164,7 +165,7 @@ bot.command [:iamnot, :imnot] do |event, *args|
     event << "もし、割り当てられた学科が違う場合は、管理者に連絡してください"
     return
   else
-    event.user.remove_role(event.server.roles.find{|r| r.name == role_name})
+    event.user.remove_role(event.server.roles.find {|r| r.name == role_name})
     event << "あなたは「" + role_name + "」をやめました"
   end
 end
@@ -172,8 +173,8 @@ end
 
 thread1 = Thread.new do
   timers = Timers::Group.new
-  timer = timers.every(60 * 15) { bot.game = games[rand(games.count)] }
-  loop { timers.wait }
+  timer = timers.every(60 * 15) {bot.game = games[rand(games.count)]}
+  loop {timers.wait}
 end
 thread2 = Thread.new do
   bot.run
