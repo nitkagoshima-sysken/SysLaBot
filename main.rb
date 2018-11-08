@@ -74,8 +74,8 @@ bot.command :test do |event|
 end
 
 # /neko: にゃーんと鳴きます
-bot.command :neko do |event|
-    event << 'にゃーん'
+bot.command :neko do |event, *args|
+    event << "#{args.join(' ')}にゃーん"
 end
 
 # /random [min] [max]: min以上max以下の乱数を返します
