@@ -170,16 +170,49 @@ bot.command [:iamnot, :imnot] do |event, *args|
   end
 end
 
-
 thread1 = Thread.new do
   timers = Timers::Group.new
   timer = timers.every(60 * 15) {bot.game = games[rand(games.count)]}
   loop {timers.wait}
 end
 thread2 = Thread.new do
-  bot.run
+  bot.run :await
+end
+thread3 = Thread.new do
+  timers = Timers::Group.new
+  timer = timers.every(60) do
+    if Date.today.tuesday? or Date.today.thursday?
+      if Time.now.hour == 17 and Time.now.min == 10
+        bot.servers.find {|key, value| value.name == "電子・情報・システム研究部"}[1]
+            .text_channels.find {|channel| channel.name == "general"}
+            .send_embed do |embed|
+          embed.title = "シス研の時間です"
+          if Date.today.tuesday?
+            embed.thumbnail = Discordrb::Webhooks::EmbedThumbnail.new(
+                url: 'https://3.bp.blogspot.com/-Vd9_UP69TR8/VJ6XtvAuTaI/AAAAAAAAqPA/DqxFZTy-B5o/s400/syougakkou_souji.png'
+            )
+            embed.color = '4169e1'
+            embed.add_field(
+                name: '今日は掃除があります',
+                value: 'みなさん、掃除を忘れずにしましょう',
+            )
+          elsif Date.today.thursday?
+            embed.thumbnail = Discordrb::Webhooks::EmbedThumbnail.new(
+                url: 'https://2.bp.blogspot.com/-JPa0Nzk_E8M/Vf-aIH2jsyI/AAAAAAAAyDc/2FG8dSNSk-k/s400/computer_girl.png'
+            )
+            embed.color = '4169e1'
+            embed.add_field(
+                name: '今日は木曜日です',
+                value: 'プログラミングを楽しみましょう',
+            )
+          end
+        end
+      end
+    end
+  end
+  loop {timers.wait}
 end
 
 thread1.join
 thread2.join
-
+thread3.join
