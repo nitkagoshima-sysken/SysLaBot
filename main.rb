@@ -60,20 +60,6 @@ bot.member_join do |event|
   end
 end
 
-bot.command :test do |event|
-  event.server.text_channels[0].send_embed do |embed|
-    embed.title = event.user.name + "さんが参加しました"
-    embed.thumbnail = Discordrb::Webhooks::EmbedThumbnail.new(
-        url: event.user.avatar_url
-    )
-    embed.color = '00dd00'
-    embed.add_field(
-        name: 'シス研へようこそ！',
-        value: "このサーバーにはいくつかのルールがあります。\nはじめに #readme をお読みください。",
-    )
-  end
-end
-
 # /neko: にゃーんと鳴きます
 bot.command :neko do |event, *args|
   event << "#{args.join(' ')}にゃーん"
