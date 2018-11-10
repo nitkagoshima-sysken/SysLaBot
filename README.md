@@ -1,4 +1,4 @@
-# SysLaBot 1.7
+# SysLaBot 1.8
 
 ## History
 
@@ -38,3 +38,8 @@
 ### Version 1.7
 
 - `/version`,`/ver`の追加
+
+### Version 1.8
+
+- `/exam`の追加
+- テスト期間中はシス研の通知が来ないように修正
