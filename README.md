@@ -1,4 +1,4 @@
-# SysLaBot 1.5
+# SysLaBot 1.6
 
 ## History
 
@@ -29,3 +29,7 @@
 ### Version 1.5
 
 - シス研の開始時刻に通知するようになった
+
+### Version 1.6
+
+- `/role`の追加
