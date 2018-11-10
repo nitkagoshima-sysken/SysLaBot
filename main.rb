@@ -2,6 +2,11 @@ require 'discordrb'
 require 'timers'
 require 'date'
 
+version_info = <<"VERSION_INFO_EOS"
+Sys La Bot 1.7
+Ruby #{RUBY_VERSION}
+VERSION_INFO_EOS
+
 year_roles = [
     '2014',
     '2015',
@@ -173,6 +178,10 @@ bot.command :role do |event|
     end
   end
   event << roles
+end
+
+bot.command [:ver, :version] do |event|
+  event << version_info
 end
 
 thread1 = Thread.new do
