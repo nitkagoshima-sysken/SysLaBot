@@ -2,10 +2,7 @@ require 'discordrb'
 require 'timers'
 require 'date'
 
-version_info = <<"VERSION_INFO_EOS"
-Sys La Bot 1.7
-Ruby #{RUBY_VERSION}
-VERSION_INFO_EOS
+version_info = "Sys La Bot 1.7\nRuby #{RUBY_VERSION}"
 
 year_roles = [
     '2014',
