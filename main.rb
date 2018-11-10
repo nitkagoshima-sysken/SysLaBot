@@ -156,6 +156,21 @@ bot.command [:iamnot, :imnot] do |event, *args|
   end
 end
 
+# 役職を表示します。
+bot.command :role do |event|
+  roles = "あなたがなれる役職一覧です\n"
+  event.server.roles.each do |role|
+    unless role.nil? or
+        role.name == '@everyone' or
+        admin_roles.include? role.name or
+        year_roles.include? role.name or
+        major_roles.include? role.name
+      roles += "「#{role.name}」"
+    end
+  end
+  event << roles
+end
+
 thread1 = Thread.new do
   timers = Timers::Group.new
   timer = timers.every(60 * 15) {bot.game = games[rand(games.count)]}
