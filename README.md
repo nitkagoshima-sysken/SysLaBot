@@ -1,4 +1,4 @@
-# SysLaBot 1.6
+# SysLaBot 1.7
 
 ## History
 
@@ -29,7 +29,12 @@
 ### Version 1.5
 
 - シス研の開始時刻に通知するようになった
+- `/neko`の仕様変更
 
 ### Version 1.6
 
 - `/role`の追加
+
+### Version 1.7
+
+- `/version`,`/ver`の追加
