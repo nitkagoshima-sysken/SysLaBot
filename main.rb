@@ -210,7 +210,7 @@ end
 thread3 = Thread.new do
   timers = Timers::Group.new
   timer = timers.every(60) do
-    if Date.today.tuesday? or Date.today.thursday?
+    if !exam_mode and Date.today.tuesday? or Date.today.thursday?
       if Time.now.hour == 17 and Time.now.min == 10
         bot.servers.find {|key, value| value.name == "電子・情報・システム研究部"}[1]
             .text_channels.find {|channel| channel.name == "general"}
