@@ -3,19 +3,25 @@ require 'timers'
 require 'date'
 
 year_roles = [
-    "2014",
-    "2015",
-    "2016",
-    "2017",
-    "2018",
+    '2014',
+    '2015',
+    '2016',
+    '2017',
+    '2018',
 ]
 
 major_roles = [
-    "Mechanical",
-    "Electrical and Electronic",
-    "Electronic Control",
-    "Information",
-    "Department of Urban Environmental Design",
+    'Mechanical',
+    'Electrical and Electronic',
+    'Electronic Control',
+    'Information',
+    'Department of Urban Environmental Design',
+]
+
+admin_roles = [
+    'Sys La',
+    'Bot Developer',
+    'Re;Hydro-Go',
 ]
 
 games = [
@@ -68,8 +74,6 @@ end
 # /random [min] [max]: min以上max以下の乱数を返します
 # /random [max]: max未満の乱数を返します
 bot.command(:random, min_args: 0, max_args: 2, description: 'Generates a random number between 0 and 1, 0 and max or min and max.', usage: 'random [min/max] [max]') do |event, min, max|
-  # The `if` statement returns one of multiple different things based on the condition. Its return value
-  # is then returned from the block and sent to the channel
   if max
     rand(min.to_i..max.to_i)
   elsif min
@@ -102,7 +106,7 @@ bot.command :say do |event|
 end
 
 bot.command :bold do |event, *args|
-  # Again, the return value of the block is sent to the channel
+  # Again, the return role of the block is sent to the channel
   "**#{args.join(' ')}**"
 end
 
