@@ -40,6 +40,9 @@ games = [
     "見上げてごらん夜の星を",
 ]
 
+# テスト期間中はこのモードをオンにする
+exam_mode = false
+
 token = File.read('token.dat')
 client_id = File.read('client_id.dat')
 prefix = '/'
@@ -94,6 +97,17 @@ bot.command :echo do |event|
   else
     event << "**error** argument is missing.\nexpected `/echo [message]`\nex. `/echo hello` > hello"
   end
+end
+
+# /echo [message]: [message]を返します
+bot.command :exam do |event|
+  exam_mode = !exam_mode
+  if exam_mode
+    bot.game = 'テスト勉強'
+  else
+    bot.game = games[rand(games.count)]
+  end
+  event << "テスト期間モードが#{exam_mode}になりました"
 end
 
 # /say [message]: [message]を返します
@@ -183,7 +197,11 @@ end
 
 thread1 = Thread.new do
   timers = Timers::Group.new
-  timer = timers.every(60 * 15) {bot.game = games[rand(games.count)]}
+  timer = timers.every(60 * 15) do
+    if exam_mode
+      bot.game = games[rand(games.count)]
+    end
+  end
   loop {timers.wait}
 end
 thread2 = Thread.new do
