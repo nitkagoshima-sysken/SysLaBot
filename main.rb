@@ -2,7 +2,7 @@ require 'discordrb'
 require 'timers'
 require 'date'
 
-version_info = "Sys La Bot 1.8\nRuby #{RUBY_VERSION}"
+version_info = "Sys La Bot 1.9\nRuby #{RUBY_VERSION}"
 
 year_roles = [
     '2014',
@@ -211,7 +211,21 @@ thread3 = Thread.new do
   timers = Timers::Group.new
   timer = timers.every(60) do
     if !exam_mode and Date.today.tuesday? or Date.today.thursday?
-      if Time.now.hour == 17 and Time.now.min == 10
+      if Date.today.month == 4 and Date.today.day == 9 and Time.now.hour == 17 and Time.now.min == 10
+        bot.servers.find {|key, value| value.name == "電子・情報・システム研究部"}[1]
+            .text_channels.find {|channel| channel.name == "general"}
+            .send_embed do |embed|
+          embed.title = "シス研の時間です"
+          embed.thumbnail = Discordrb::Webhooks::EmbedThumbnail.new(
+              url: 'http://2.bp.blogspot.com/-w0BLSaSTNNU/VkxNydj7U2I/AAAAAAAA0zo/GDqyg9ewpRE/s180-c/shinki_itten_man.png'
+          )
+          embed.color = '4169e1'
+          embed.add_field(
+              name: '今日は今年最初のシス研です！',
+              value: 'みなさん、気合を入れていきましょうね！！',
+          )
+        end
+      elsif Time.now.hour == 17 and Time.now.min == 10
         bot.servers.find {|key, value| value.name == "電子・情報・システム研究部"}[1]
             .text_channels.find {|channel| channel.name == "general"}
             .send_embed do |embed|
